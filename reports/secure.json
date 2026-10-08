@@ -1,0 +1,301 @@
+{
+  "spec": "spec/openapi_edited.yml",
+  "logs": "logs/secure.jsonl",
+  "log_lines": 23,
+  "summary": {
+    "SHADOW": 2,
+    "ZOMBIE": 2,
+    "ORPHAN": 2,
+    "DOCUMENTED": 8,
+    "NOISE": 6
+  },
+  "findings": [
+    {
+      "method": "GET",
+      "path": "/users/v1/_debug",
+      "classification": "SHADOW",
+      "score": 85,
+      "severity": "high",
+      "reasons": [
+        "in traffic (1 request(s)) but not in the spec (+40)",
+        "sensitive word in path: debug (+25)",
+        "returned 2xx with no Authorization header 1 time(s) (+20)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "200": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/createdb",
+      "classification": "SHADOW",
+      "score": 60,
+      "severity": "high",
+      "reasons": [
+        "in traffic (1 request(s)) but not in the spec (+40)",
+        "returned 2xx with no Authorization header 1 time(s) (+20)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "200": 1
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "classification": "ZOMBIE",
+      "score": 40,
+      "severity": "medium",
+      "reasons": [
+        "marked deprecated but still called 1 time(s) (+30)",
+        "write method PUT (+10)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "204": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/users/v1",
+      "classification": "ZOMBIE",
+      "score": 30,
+      "severity": "medium",
+      "reasons": [
+        "marked deprecated but still called 2 time(s) (+30)"
+      ],
+      "requests": 2,
+      "statuses": {
+        "200": 2
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/v1/{username}",
+      "classification": "ORPHAN",
+      "score": 20,
+      "severity": "low",
+      "reasons": [
+        "in the spec but never called (+10)",
+        "write method DELETE (+10)"
+      ],
+      "requests": 0,
+      "statuses": {}
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "classification": "ORPHAN",
+      "score": 20,
+      "severity": "low",
+      "reasons": [
+        "in the spec but never called (+10)",
+        "write method PUT (+10)"
+      ],
+      "requests": 0,
+      "statuses": {}
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "classification": "DOCUMENTED",
+      "score": 10,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 1 time(s)",
+        "write method POST (+10)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "200": 1
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/users/v1/login",
+      "classification": "DOCUMENTED",
+      "score": 10,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 1 time(s)",
+        "write method POST (+10)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "200": 1
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/users/v1/register",
+      "classification": "DOCUMENTED",
+      "score": 10,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 1 time(s)",
+        "write method POST (+10)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "200": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "classification": "DOCUMENTED",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 1 time(s)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "200": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1",
+      "classification": "DOCUMENTED",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 1 time(s)"
+      ],
+      "requests": 1,
+      "statuses": {
+        "200": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "classification": "DOCUMENTED",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 2 time(s)"
+      ],
+      "requests": 2,
+      "statuses": {
+        "200": 1,
+        "401": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "classification": "DOCUMENTED",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 2 time(s)"
+      ],
+      "requests": 2,
+      "statuses": {
+        "200": 1,
+        "401": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/users/v1/{username}",
+      "classification": "DOCUMENTED",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "in the spec and called 2 time(s)"
+      ],
+      "requests": 2,
+      "statuses": {
+        "200": 2
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/.env",
+      "classification": "NOISE",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "not in spec and only ever returned 404 (1 request(s)): scanner noise"
+      ],
+      "requests": 1,
+      "statuses": {
+        "404": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/admin",
+      "classification": "NOISE",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "not in spec and only ever returned 404 (1 request(s)): scanner noise"
+      ],
+      "requests": 1,
+      "statuses": {
+        "404": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/users/{id}",
+      "classification": "NOISE",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "not in spec and only ever returned 404 (2 request(s)): scanner noise"
+      ],
+      "requests": 2,
+      "statuses": {
+        "404": 2
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/backup.zip",
+      "classification": "NOISE",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "not in spec and only ever returned 404 (1 request(s)): scanner noise"
+      ],
+      "requests": 1,
+      "statuses": {
+        "404": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{id}",
+      "classification": "NOISE",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "not in spec and only ever returned 404 (1 request(s)): scanner noise"
+      ],
+      "requests": 1,
+      "statuses": {
+        "404": 1
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/wp-login.php",
+      "classification": "NOISE",
+      "score": 0,
+      "severity": "low",
+      "reasons": [
+        "not in spec and only ever returned 404 (1 request(s)): scanner noise"
+      ],
+      "requests": 1,
+      "statuses": {
+        "404": 1
+      }
+    }
+  ]
+}
